@@ -1,0 +1,66 @@
+Wayne Enterprises Dashboard - Backend (FastAPI) Overview
+========================================================
+
+This backend is a FastAPI application that provides REST API endpoints for the Wayne Enterprises business intelligence dashboard. It loads data from CSV files, processes it using pandas, and serves analytics to the frontend.
+
+1. Project Structure
+--------------------
+backend/
+├── main.py                # Main FastAPI app and all endpoints
+├── requirements.txt       # Python dependencies
+├── wayne_financial_data.csv
+├── wayne_hr_analytics.csv
+├── wayne_security_data.csv
+├── wayne_rd_portfolio.csv
+├── wayne_supply_chain.csv
+... (other config files)
+
+2. Key Libraries
+----------------
+- FastAPI: Web framework for APIs
+- pandas: Data analysis and manipulation
+- numpy: Numerical operations
+- Uvicorn: ASGI server for FastAPI
+
+3. How It Works
+---------------
+- On startup, loads all CSV files into pandas DataFrames.
+- Sets up CORS to allow frontend requests.
+- Exposes several API endpoints for different business domains:
+
+  a. /api/dashboard/overview
+     - Returns executive summary metrics (revenue, profit, employees, safety, R&D, etc.)
+     - Aggregates latest/average values from each CSV
+
+  b. /api/financial/trends
+     - Returns financial trends by division and quarter
+     - Groups and summarizes revenue and profit
+
+  c. /api/hr/performance
+     - Returns HR metrics by department and employee level
+     - Groups by department/level for latest date, calculates retention, satisfaction, etc.
+
+  d. /api/security/districts
+     - Returns security metrics by district
+     - Groups by district for latest date, summarizes incidents, safety scores
+
+  e. /api/rd/portfolio
+     - Returns R&D project portfolio data
+     - Summarizes active, completed, paused projects, budgets, categories
+
+  f. /api/supply-chain/facilities
+     - Returns supply chain facility performance
+     - Groups by facility, calculates efficiency, capacity, lead time, quality
+
+  g. /api/business/narrative
+     - Returns a business narrative (summary/insights)
+     - Generates a text summary based on latest data
+
+- All calculations and business logic are handled in the backend.
+- If data is missing or an error occurs, the API returns a 500 error with a message.
+
+4. Data Flow
+------------
+CSV files → pandas DataFrames → API endpoints process/aggregate data → Frontend fetches and displays results
+
+This backend is designed for clarity, modularity, and easy integration with the Next.js frontend dashboard. 
